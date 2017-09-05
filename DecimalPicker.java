@@ -1,4 +1,4 @@
-package ru.alanov.cashbox.ui.widget.decimalpicker;
+package com.isabsent.widget.decimalpicker;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -20,9 +20,6 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
-
-import ru.alanov.cashbox.R;
-import ru.alanov.cashbox.Utils;
 
 public class DecimalPicker extends RelativeLayout {
     private Context context;
@@ -153,7 +150,7 @@ public class DecimalPicker extends RelativeLayout {
             n = initialNumber;
 
         if (format != null) {
-            String num = String.format(Utils.getCurrentLocale(getContext()), format, n);
+            String num = String.format(getCurrentLocale(getContext()), format, n);
             num = removeTrailingZeroes(num);
             editText.setText(num);
         } else
@@ -204,6 +201,13 @@ public class DecimalPicker extends RelativeLayout {
 
     public void setFormat(String format){
         this.format = format;
+    }
+    
+    public static Locale getCurrentLocale(Context context){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            return context.getResources().getConfiguration().getLocales().get(0);
+        else
+            return context.getResources().getConfiguration().locale;
     }
 }
 
