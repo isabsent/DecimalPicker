@@ -1,5 +1,3 @@
-package ru.alanov.cashbox.ui.widget.decimalpicker;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
