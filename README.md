@@ -1,2 +1,2 @@
 # DecimalPicker
-Extends ElegantNumberButton to handle floating point numbers.
+Extends [ElegantNumberButton](https://github.com/ashik94vc/ElegantNumberButton) to handle floating point numbers.
