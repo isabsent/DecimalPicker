@@ -3,7 +3,7 @@
     android:gravity="center_horizontal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-        <com.example.decimalpicker.DecimalPicker
+        <com.github.isabsent.decimalpicker.DecimalPicker
             android:id="@+id/decimal_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
