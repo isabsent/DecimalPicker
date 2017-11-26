@@ -42,7 +42,7 @@ android {
     }
 }
 
-group = "com.cepheuen"
+group = "com.example"
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
