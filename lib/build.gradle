@@ -4,7 +4,7 @@ ext {
     bintrayRepo = 'maven'
     bintrayName = 'decimal-picker'
 
-    publishedGroupId = 'com.example.decimalpickerdemo'
+    publishedGroupId = 'com.example.decimal-picker'
     libraryName = 'DecimalPicker'
     artifact = 'lib'
 
