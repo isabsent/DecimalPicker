@@ -1,4 +1,4 @@
-package com.example.decimalpickerdemo;
+package com.example.decimalpicker;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;

@@ -7,8 +7,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
+
+import com.example.decimalpicker.DecimalPicker;
 
 public class DecimalPickerDialog extends AppCompatDialogFragment {
     DecimalPicker decimalPicker;
