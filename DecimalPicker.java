@@ -1,4 +1,4 @@
-package com.isabsent.widget.decimalpicker;
+package ru.alanov.cashbox.ui.widget.decimalpicker;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -7,6 +7,8 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
@@ -20,6 +22,10 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.Locale;
+
+import ru.alanov.cashbox.R;
+import ru.alanov.cashbox.Utils;
 
 public class DecimalPicker extends RelativeLayout {
     private Context context;
@@ -27,10 +33,9 @@ public class DecimalPicker extends RelativeLayout {
     private int styleAttr;
     private OnClickListener mListener;
     private double initialNumber, finalNumber, lastNumber, currentNumber;
-    private EditText editText;
     private String format;
+    private EditText editText;
     private OnValueChangeListener onValueChangeListener;
-    private OnValueChangeListener onClickListener;
 
     public DecimalPicker(Context context) {
         super(context);
@@ -54,25 +59,51 @@ public class DecimalPicker extends RelativeLayout {
     }
 
     private void initView(){
-        inflate(context,R.layout.decimal_picker, this);
-
         final Resources res = getResources();
-        final int defaultColor = res.getColor(R.color.colorPrimary);
+        final int defaultColor = res.getColor(R.color.colorPrimaryDark);
         final int defaultTextColor = res.getColor(R.color.colorText);
         final Drawable defaultDrawable = res.getDrawable(R.drawable.decimal_picker_shape);
 
-        TypedArray a = context.obtainStyledAttributes(attrs,R.styleable.DecimalPicker,styleAttr,0);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DecimalPicker, styleAttr, 0);
 
-        initialNumber = a.getInt(R.styleable.DecimalPicker_initialNumber,0);
-        finalNumber = a.getInt(R.styleable.DecimalPicker_finalNumber,Integer.MAX_VALUE);
-        float textSize = a.getDimension(R.styleable.DecimalPicker_textSize,13);
+        initialNumber = a.getInt(R.styleable.DecimalPicker_initialNumber, 0);
+        finalNumber = a.getInt(R.styleable.DecimalPicker_finalNumber, Integer.MAX_VALUE);
+        float textSize = a.getDimension(R.styleable.DecimalPicker_textSize, 24);
         int color = a.getColor(R.styleable.DecimalPicker_backGroundColor,defaultColor);
         int textColor = a.getColor(R.styleable.DecimalPicker_textColor,defaultTextColor);
         Drawable drawable = a.getDrawable(R.styleable.DecimalPicker_backgroundDrawable);
 
         Button buttonMinus = (Button) findViewById(R.id.subtract_btn);
         Button buttonPlus = (Button) findViewById(R.id.add_btn);
+
         editText = (EditText) findViewById(R.id.number_counter);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String value = s.toString().trim();
+                double valueDouble = -1;
+                try {
+                    valueDouble = parseDouble(value.isEmpty() ? "0" : value);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+                if (valueDouble >= 0){
+                    lastNumber = currentNumber;
+                    currentNumber = valueDouble;
+                    callListener(DecimalPicker.this);
+                }
+            }
+        });
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             @Override
@@ -94,15 +125,16 @@ public class DecimalPicker extends RelativeLayout {
         buttonPlus.setTextSize(textSize);
         editText.setTextSize(textSize);
 
-        if (drawable == null){
+        if (drawable == null)
             drawable = defaultDrawable;
+
+        if (drawable != null) {
+            drawable.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC));
+            if (Build.VERSION.SDK_INT > 16)
+                mLayout.setBackground(drawable);
+            else
+                mLayout.setBackgroundDrawable(drawable);
         }
-        assert drawable != null;
-        drawable.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC));
-        if (Build.VERSION.SDK_INT > 16)
-            mLayout.setBackground(drawable);
-        else
-            mLayout.setBackgroundDrawable(drawable);
 
         editText.setText(String.valueOf(initialNumber));
 
@@ -113,16 +145,16 @@ public class DecimalPicker extends RelativeLayout {
 
             @Override
             public void onClick(View mView) {
-                double num = Double.valueOf(editText.getText().toString());
-                setNumber(String.valueOf(num - 1), true);
+                double num = parseDouble(editText.getText().toString());
+                setNumber(String.valueOf(num - 1)/*, true*/);
             }
         });
         buttonPlus.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View mView) {
-                double num = Double.valueOf(editText.getText().toString());
-                setNumber(String.valueOf(num + 1), true);
+                double num = parseDouble(editText.getText().toString());
+                setNumber(String.valueOf(num + 1)/*, true*/);
             }
         });
         a.recycle();
@@ -140,24 +172,31 @@ public class DecimalPicker extends RelativeLayout {
         return String.valueOf(currentNumber);
     }
 
-    public void setNumber(String number){
-        double n = Double.parseDouble(number);
+    public void setNumber(String number) {
+        try {
+            double n = parseDouble(number);
+            if (n > finalNumber)
+                n = finalNumber;
 
-        if (n > finalNumber)
-            n = finalNumber;
+            if (n < initialNumber)
+                n = initialNumber;
 
-        if (n < initialNumber)
-            n = initialNumber;
+            if (format != null) {
+                String num = String.format(Utils.getCurrentLocale(getContext()), format, n);
+                num = removeTrailingZeroes(num);
+                editText.setText(num);
+            } else
+                editText.setText(String.valueOf(number));
 
-        if (format != null) {
-            String num = String.format(getCurrentLocale(getContext()), format, n);
-            num = removeTrailingZeroes(num);
-            editText.setText(num);
-        } else
-            editText.setText(String.valueOf(number));
+            lastNumber = currentNumber;
+            currentNumber = parseDouble(editText.getText().toString());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
 
-        lastNumber = currentNumber;
-        currentNumber = Double.parseDouble(editText.getText().toString());
+    private double parseDouble(String str) throws NumberFormatException {
+        return Double.parseDouble(str.replace(",","."));
     }
 
     private String removeTrailingZeroes(String num) {
@@ -202,12 +241,13 @@ public class DecimalPicker extends RelativeLayout {
     public void setFormat(String format){
         this.format = format;
     }
-    
-    public static Locale getCurrentLocale(Context context){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            return context.getResources().getConfiguration().getLocales().get(0);
-        else
-            return context.getResources().getConfiguration().locale;
+
+    public Locale getCurrentLocale(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            return getResources().getConfiguration().getLocales().get(0);
+        } else{
+            return getResources().getConfiguration().locale;
+        }
     }
 }
 
