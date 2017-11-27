@@ -5,6 +5,8 @@
     android:layout_height="wrap_content">
         <com.github.isabsent.decimalpicker.DecimalPicker
             android:id="@+id/decimal_picker"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"/>

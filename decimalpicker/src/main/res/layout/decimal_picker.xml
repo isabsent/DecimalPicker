@@ -18,9 +18,11 @@
         android:imeOptions="flagNoExtractUi"
         android:inputType="numberDecimal"
         android:text = "1"
-        android:layout_weight="1"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:minWidth="16dp"
+        android:lines="1"
+        android:maxLength="10"
         android:background="@android:color/transparent" />
     <Button
         android:id="@+id/add_btn"

@@ -39,7 +39,7 @@ public class DecimalPickerDialog extends DialogFragment {
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("                  ")
+        builder.setTitle("Title")
                 .setView(view)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
