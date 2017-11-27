@@ -1,16 +1,16 @@
 package com.github.isabsent.decimalpickerdemo;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.github.isabsent.decimalpicker.DecimalPicker;
 
-public class DecimalPickerDialog extends AppCompatDialogFragment {
+public class DecimalPickerDialog extends DialogFragment {
     DecimalPicker decimalPicker;
 
     @Override

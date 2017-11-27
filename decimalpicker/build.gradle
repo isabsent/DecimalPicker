@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/isabsent/DecimalPicker'
     gitUrl = 'https://github.com/isabsent/DecimalPicker.git'
 
-    libraryVersion = '0.0.3'
+    libraryVersion = '0.0.5'
 
     developerId = 'isabsent'
     developerName = 'Lev Popovich'
@@ -32,7 +32,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
-        versionName "0.0.3"
+        versionName "0.0.5"
     }
     buildTypes {
         release {
@@ -46,8 +46,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.+'
+//    testCompile 'junit:junit:4.12'
+//    compile 'com.android.support:appcompat-v7:25.+'
 }
 
 //https://android-tools.ru/coding/kak-sozdat-svoyu-sobstvennuyu-biblioteku-android-cherez-jcenter-i-maven-central/
