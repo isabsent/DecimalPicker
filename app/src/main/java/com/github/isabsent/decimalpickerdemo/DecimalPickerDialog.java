@@ -20,7 +20,7 @@ public class DecimalPickerDialog extends DialogFragment {
 
         decimalPicker = (DecimalPicker) view.findViewById(R.id.decimal_picker);
         decimalPicker.setFormat("%.3f");
-        decimalPicker.setRange(0.0, 10.0);
+//        decimalPicker.setRange(0.0, 1000.0);
 
         decimalPicker.setOnClickListener(new DecimalPicker.OnClickListener() {
 

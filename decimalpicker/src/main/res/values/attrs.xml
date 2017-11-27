@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="DecimalPicker">
-        <attr name="backGroundColor" format="color"/>
+        <attr name="backgroundColor" format="color"/>
+        <attr name="beforeDecimal" format="integer"/>
+        <attr name="afterDecimal" format="integer"/>
         <attr name="initialNumber" format="integer"/>
         <attr name="finalNumber" format="integer" />
         <attr name="textColor" format="color"/>

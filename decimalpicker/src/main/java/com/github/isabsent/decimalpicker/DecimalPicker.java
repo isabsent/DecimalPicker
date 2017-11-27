@@ -7,6 +7,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -29,6 +30,7 @@ public class DecimalPicker extends RelativeLayout {
     private int styleAttr;
     private OnClickListener mListener;
     private double initialNumber, finalNumber, lastNumber, currentNumber;
+    private int beforeDecimal, afterDecimal;
     private String format;
     private EditText editText;
     private OnValueChangeListener onValueChangeListener;
@@ -63,17 +65,20 @@ public class DecimalPicker extends RelativeLayout {
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DecimalPicker, styleAttr, 0);
 
+        beforeDecimal = a.getInt(R.styleable.DecimalPicker_beforeDecimal, 7);
+        afterDecimal = a.getInt(R.styleable.DecimalPicker_afterDecimal, 3);
         initialNumber = a.getInt(R.styleable.DecimalPicker_initialNumber, 0);
-        finalNumber = a.getInt(R.styleable.DecimalPicker_finalNumber, Integer.MAX_VALUE);
+        finalNumber = a.getFloat(R.styleable.DecimalPicker_finalNumber, Integer.MAX_VALUE);
         float textSize = a.getDimension(R.styleable.DecimalPicker_textSize, 24);
-        int color = a.getColor(R.styleable.DecimalPicker_backGroundColor,defaultColor);
-        int textColor = a.getColor(R.styleable.DecimalPicker_textColor,defaultTextColor);
+        int color = a.getColor(R.styleable.DecimalPicker_backgroundColor, defaultColor);
+        int textColor = a.getColor(R.styleable.DecimalPicker_textColor, defaultTextColor);
         Drawable drawable = a.getDrawable(R.styleable.DecimalPicker_backgroundDrawable);
 
         Button buttonMinus = (Button) view.findViewById(R.id.subtract_btn);
         Button buttonPlus = (Button) view.findViewById(R.id.add_btn);
 
         editText = (EditText) view.findViewById(R.id.number_counter);
+        editText.setFilters(new InputFilter[]{new DecimalInputFilter(beforeDecimal, afterDecimal)});
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -94,10 +99,15 @@ public class DecimalPicker extends RelativeLayout {
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
-                if (valueDouble >= 0){
+                if (valueDouble >= 0 && valueDouble <= finalNumber){
                     lastNumber = currentNumber;
                     currentNumber = valueDouble;
                     callListener(DecimalPicker.this);
+                } else if (valueDouble > finalNumber){//https://stackoverflow.com/questions/5357455/limit-decimal-places-in-android-edittext
+                    lastNumber = currentNumber;
+                    currentNumber = finalNumber;
+                    s.clear();
+                    s.insert(0, String.valueOf(finalNumber));
                 }
             }
         });
@@ -245,5 +255,13 @@ public class DecimalPicker extends RelativeLayout {
         } else{
             return getResources().getConfiguration().locale;
         }
+    }
+
+    public void setBeforeDecimal(int beforeDecimal) {
+        this.beforeDecimal = beforeDecimal;
+    }
+
+    public void setAfterDecimal(int afterDecimal) {
+        this.afterDecimal = afterDecimal;
     }
 }
