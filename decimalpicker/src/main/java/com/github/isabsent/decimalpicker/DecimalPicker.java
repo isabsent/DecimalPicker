@@ -56,6 +56,7 @@ public class DecimalPicker extends RelativeLayout {
         initView();
     }
 
+    //https://stackoverflow.com/questions/3282390/add-floating-point-value-to-android-resources-values
     private void initView(){
         View view = inflate(context, R.layout.decimal_picker, this);
         final Resources res = getResources();
@@ -68,7 +69,7 @@ public class DecimalPicker extends RelativeLayout {
         beforeDecimal = a.getInt(R.styleable.DecimalPicker_beforeDecimal, 7);
         afterDecimal = a.getInt(R.styleable.DecimalPicker_afterDecimal, 3);
         initialNumber = a.getInt(R.styleable.DecimalPicker_initialNumber, 0);
-        finalNumber = a.getFloat(R.styleable.DecimalPicker_finalNumber, Integer.MAX_VALUE);
+        finalNumber = a.getInt(R.styleable.DecimalPicker_finalNumber, Integer.MAX_VALUE);
         float textSize = a.getDimension(R.styleable.DecimalPicker_textSize, 24);
         int color = a.getColor(R.styleable.DecimalPicker_backgroundColor, defaultColor);
         int textColor = a.getColor(R.styleable.DecimalPicker_textColor, defaultTextColor);
@@ -240,7 +241,7 @@ public class DecimalPicker extends RelativeLayout {
         void onValueChange(DecimalPicker view, double oldValue, double newValue);
     }
 
-    public void setRange(Double startingNumber, Double endingNumber) {
+    public void setRange(int startingNumber, int endingNumber) {
         initialNumber = startingNumber;
         finalNumber = endingNumber;
     }

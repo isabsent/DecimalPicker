@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/isabsent/DecimalPicker'
     gitUrl = 'https://github.com/isabsent/DecimalPicker.git'
 
-    libraryVersion = '0.0.7'
+    libraryVersion = '0.0.9'
 
     developerId = 'isabsent'
     developerName = 'Lev Popovich'
@@ -32,7 +32,7 @@ android {
         minSdkVersion 11
         targetSdkVersion 23
         versionCode 1
-        versionName "0.0.7"
+        versionName "0.0.9"
     }
     buildTypes {
         release {

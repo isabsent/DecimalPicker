@@ -6,6 +6,7 @@ import android.text.Spanned;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+//https://stackoverflow.com/a/40474307/753575
 public class DecimalInputFilter implements InputFilter {
     private Pattern pattern;
 
@@ -20,11 +21,6 @@ public class DecimalInputFilter implements InputFilter {
         newString = newString.substring(0, destinationStart) + source.toString() + newString.substring(destinationStart, newString.length());
         // Now check if the new string is valid.
         Matcher matcher = pattern.matcher(newString);
-        if(matcher.matches()){
-            // Returning null indicates that the input is valid.
-            return null;
-        }
-        // Returning the empty string indicates the input is invalid.
-        return "";
+        return matcher.matches() ? null : "";// Returning null indicates that the input is valid. Returning the empty string indicates the input is invalid.
     }
 }

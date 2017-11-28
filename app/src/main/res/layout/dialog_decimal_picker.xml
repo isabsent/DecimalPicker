@@ -8,7 +8,7 @@
             android:id="@+id/decimal_picker"
             picker:beforeDecimal="3"
             picker:afterDecimal="2"
-            picker:initialNumber="1"
+            picker:initialNumber="0"
             picker:finalNumber="100"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
