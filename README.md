@@ -2,13 +2,13 @@
 Extends [ElegantNumberButton](https://github.com/ashik94vc/ElegantNumberButton) to handle floating point numbers.
 ## Gradle
 
-  `compile 'com.github.isabsent:decimalpicker:0.0.6'`
+  `compile 'com.github.isabsent:decimalpicker:0.0.9'`
 ## Maven
 
     <dependency>
       <groupId>com.github.isabsent</groupId>
       <artifactId>decimalpicker</artifactId>
-      <version>0.0.6</version>
+      <version>0.0.9</version>
       <type>pom</type>
     </dependency>
     
