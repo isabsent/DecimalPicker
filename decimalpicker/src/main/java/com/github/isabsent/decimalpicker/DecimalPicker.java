@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -70,7 +71,7 @@ public class DecimalPicker extends RelativeLayout {
         afterDecimal = a.getInt(R.styleable.DecimalPicker_afterDecimal, 3);
         initialNumber = a.getInt(R.styleable.DecimalPicker_initialNumber, 0);
         finalNumber = a.getInt(R.styleable.DecimalPicker_finalNumber, Integer.MAX_VALUE);
-        float textSize = a.getDimension(R.styleable.DecimalPicker_textSize, 24);
+        float textSize = a.getDimension(R.styleable.DecimalPicker_textSize, 18);
         int color = a.getColor(R.styleable.DecimalPicker_backgroundColor, defaultColor);
         int textColor = a.getColor(R.styleable.DecimalPicker_textColor, defaultTextColor);
         Drawable drawable = a.getDrawable(R.styleable.DecimalPicker_backgroundDrawable);
@@ -129,9 +130,9 @@ public class DecimalPicker extends RelativeLayout {
         buttonMinus.setTextColor(textColor);
         buttonPlus.setTextColor(textColor);
         editText.setTextColor(textColor);
-        buttonMinus.setTextSize(textSize);
-        buttonPlus.setTextSize(textSize);
-        editText.setTextSize(textSize);
+        buttonMinus.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+        buttonPlus.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+        editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
 
         if (drawable == null)
             drawable = defaultDrawable;
