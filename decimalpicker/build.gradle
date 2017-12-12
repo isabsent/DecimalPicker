@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/isabsent/DecimalPicker'
     gitUrl = 'https://github.com/isabsent/DecimalPicker.git'
 
-    libraryVersion = '0.0.9'
+    libraryVersion = '0.0.10'
 
     developerId = 'isabsent'
     developerName = 'Lev Popovich'
