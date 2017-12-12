@@ -16,12 +16,12 @@ Extends [ElegantNumberButton](https://github.com/ashik94vc/ElegantNumberButton) 
 
         <com.github.isabsent.decimalpicker.DecimalPicker
             android:id="@+id/decimal_picker"
-            picker:beforeDecimal="3"
-            picker:afterDecimal="2"
-            picker:initialNumber="0"
-            picker:finalNumber="100"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp"/>
+            picker:beforeDecimal="3"
+            picker:afterDecimal="2"
+            picker:initialNumber="0"
+            picker:finalNumber="100"
+            picker:textSize="24sp"/>
